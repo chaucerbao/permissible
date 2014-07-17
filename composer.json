@@ -1,0 +1,21 @@
+{
+  "name": "chaucerbao/permissible",
+  "description": "A permission system implemented as a trait",
+  "authors": [{
+    "name": "Alvin Chan",
+    "email": "aschan@gmail.com"
+  }],
+  "require": {
+    "php": ">=5.4.0",
+    "illuminate/support": "4.2.*"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "4.1.*"
+  },
+  "autoload": {
+    "psr-0": {
+      "Chaucerbao\\Permissible": "src/"
+    }
+  },
+  "minimum-stability": "stable"
+}
