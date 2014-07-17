@@ -58,8 +58,7 @@ class PermissibleTest extends PHPUnit_Framework_TestCase
         $allow = $this->getHiddenMethod('MockUser', 'allow');
         $allow->invoke($user, 'A role', 'write', 'MockObject');
 
-        $can = $this->getHiddenMethod('MockUser', 'can');
-        $allowed = $can->invoke($user, 'write', 'MockObject');
+        $allowed = $user->can('write', 'MockObject');
 
         $this->assertTrue($allowed);
     }
@@ -79,16 +78,14 @@ class PermissibleTest extends PHPUnit_Framework_TestCase
             return $user->id === $object->user_id;
         });
 
-        $can = $this->getHiddenMethod('MockUser', 'can');
-
         /* User owns the object */
         $user->id = 24;
         $object->user_id = 24;
-        $allowedA = $can->invoke($user, 'write', $object);
+        $allowedA = $user->can('write', $object);
 
         /* User does not own the object */
         $object->user_id = 76;
-        $allowedB = $can->invoke($user, 'write', $object);
+        $allowedB = $user->can('write', $object);
 
         $this->assertTrue($allowedA);
         $this->assertFalse($allowedB);
