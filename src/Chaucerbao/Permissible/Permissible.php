@@ -12,7 +12,7 @@ trait Permissible
         $this->roles = $roles;
     }
 
-    protected function allow($role, $action, $target, $allowed = true)
+    public function allow($role, $action, $target, $allowed = true)
     {
         $this->permissions[$role][$target][$action] = $allowed;
     }

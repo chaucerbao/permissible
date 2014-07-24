@@ -17,12 +17,11 @@ class PermissibleTest extends PHPUnit_Framework_TestCase
     public function testAllowBoolean()
     {
         $user = new MockUser;
-        $method = $this->getHiddenMethod('MockUser', 'allow');
 
         /* Set the permissions */
-        $method->invoke($user, 'Some role', 'read', 'Some thing');
-        $method->invoke($user, 'Some role', 'write', 'Some thing', false);
-        $method->invoke($user, 'Another role', 'read', 'Some thing', false);
+        $user->allow('Some role', 'read', 'Some thing');
+        $user->allow('Some role', 'write', 'Some thing', false);
+        $user->allow('Another role', 'read', 'Some thing', false);
 
         $this->assertEquals(['Some role' => ['Some thing' => ['read' => true, 'write' => false]], 'Another role' => ['Some thing' => ['read' => false]]], PHPUnit_Framework_Assert::readAttribute($user, 'permissions'));
     }
@@ -30,10 +29,9 @@ class PermissibleTest extends PHPUnit_Framework_TestCase
     public function testAllowClosure()
     {
         $user = new MockUser;
-        $method = $this->getHiddenMethod('MockUser', 'allow');
 
         /* Set the permissions, allow closure to determine access */
-        $method->invoke($user, 'Some role', 'read', 'Some thing', function () {
+        $user->allow('Some role', 'read', 'Some thing', function () {
             return 1 + 2 + 3;
         });
 
